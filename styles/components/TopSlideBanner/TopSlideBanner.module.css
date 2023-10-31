@@ -1,0 +1,19 @@
+.banner {
+  position: absolute;
+  top: 0;
+  width: 100%;
+  height: 30px;
+  background-color: black;
+}
+
+.text {
+  font-family: "pretendard";
+  font-weight: 200;
+  font-size: 15px;
+  color: white;
+  line-height: 30px;
+  -webkit-user-select: none;
+     -moz-user-select: none;
+          user-select: none;
+  margin-left: 15px;
+}/*# sourceMappingURL=TopSlideBanner.module.css.map */
