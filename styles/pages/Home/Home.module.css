@@ -14,7 +14,7 @@
 
 .main_text {
   font-family: "pretendard";
-  font-weight: 600;
+  font-weight: 500;
   font-size: 35px;
   color: white;
   line-height: 45px;
@@ -30,4 +30,5 @@
   color: transparent;
   -webkit-background-clip: text;
           background-clip: text;
+  text-shadow: 0 0 40px #76b6ee;
 }/*# sourceMappingURL=Home.module.css.map */

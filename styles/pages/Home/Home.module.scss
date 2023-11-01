@@ -13,7 +13,7 @@
 
 .main_text {
     font-family: 'pretendard';
-    font-weight: 600;
+    font-weight: 500;
     font-size: 35px;
     color: white;
     line-height: 45px;
@@ -26,4 +26,5 @@
     background: linear-gradient(to right top, #005AA7, #FFFDE4);
     color: transparent;
     background-clip: text;
+    text-shadow: 0 0 40px #76b6ee;
 }

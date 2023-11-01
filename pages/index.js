@@ -28,13 +28,13 @@ export default function Home() {
             maxWidth: '1100px',
             height: 'auto',
             minHeight: '300px',
-            '-webkit-user-drag': 'none',
+            WebkitUserDrag: 'none',
             filter: 'blur(40px) brightness(30%) opacity(80%)'
           }}
           loader={({ src }) => { return `https://cdn.sangdang.kr/${src}` }}
         />
         <div className={styles.main_text}>
-          운명처럼 찾아와<br/>당신을 기다린<br /><span id={styles.yongcheon}>2023 용천제</span>
+          <span style={{color:'rgba(255,255,255,0.8)'}}>운명처럼 찾아와<br/>당신을 기다린</span><br /><span style={{fontWeight:'700'}} id={styles.yongcheon}>2023 용천제</span>
         </div>
       </div>
     </>
