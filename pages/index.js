@@ -17,24 +17,26 @@ export default function Home() {
         snowflakeCount={25}
       />
       <TopSlideBanner />
-      <Image
-        src="sangdang.jpg"
-        width={0}
-        height={0}
-        style={{
-          width: '100%',
-          minWidth: '800px',
-          height: 'auto',
-          minHeight: '300px',
-          filter: 'blur(40px) brightness(30%) opacity(80%)',
-          textAlign: 'center',
-          position: 'absolute',
-          top: '30px',
-          userSelect: 'none',
-          '-webkit-user-drag': 'none'
-        }}
-      loader={({ src }) => { return `https://cdn.sangdang.kr/${src}` }}
-      />
+      <div className={styles.image_container}>
+        <Image
+          src="sangdang.jpg"
+          width={0}
+          height={0}
+          style={{
+            width: '100%',
+            minWidth: '800px',
+            maxWidth: '1100px',
+            height: 'auto',
+            minHeight: '300px',
+            '-webkit-user-drag': 'none',
+            filter: 'blur(40px) brightness(30%) opacity(80%)'
+          }}
+          loader={({ src }) => { return `https://cdn.sangdang.kr/${src}` }}
+        />
+        <div className={styles.main_text}>
+          운명처럼 찾아와<br/>당신을 기다린<br /><span id={styles.yongcheon}>2023 용천제</span>
+        </div>
+      </div>
     </>
   )
 }

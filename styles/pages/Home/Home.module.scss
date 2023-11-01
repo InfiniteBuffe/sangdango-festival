@@ -1,0 +1,29 @@
+
+.image_container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100vw;
+    margin-top: 30px;
+    padding: 100px 0;
+    padding-top: 0;
+    -webkit-user-drag: none;
+    user-select: none;
+}
+
+.main_text {
+    font-family: 'pretendard';
+    font-weight: 600;
+    font-size: 35px;
+    color: white;
+    line-height: 45px;
+    user-select: none;
+    position: absolute;
+    text-align: center;
+}
+
+#yongcheon {
+    background: linear-gradient(to right top, #005AA7, #FFFDE4);
+    color: transparent;
+    background-clip: text;
+}
