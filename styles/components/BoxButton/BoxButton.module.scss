@@ -1,0 +1,21 @@
+.button {
+    border-radius: 15px;
+    margin: auto;
+    height: 60px;
+    cursor: pointer;
+}
+
+.text {
+    font-family: 'pretendard';
+    font-weight: 600;
+    font-size: 20px;
+    // color: black;
+    text-align: center;
+    line-height: 60px;
+    user-select: none;
+}
+
+#blue {
+    background-color: #2B3499;
+    color: white;
+}

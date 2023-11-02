@@ -4,6 +4,8 @@ import styles from '@/styles/pages/Home/Home.module.css'
 import TopSlideBanner from '@/components/TopSlideBanner'
 import Snowfall from 'react-snowfall'
 import React from "react"
+import Box from '@/components/Box'
+import BoxButton from '@/components/BoxButton'
 React.useLayoutEffect = React.useEffect
 
 export default function Home() {
@@ -37,6 +39,13 @@ export default function Home() {
           <span style={{color:'rgba(255,255,255,0.8)'}}>운명처럼 찾아와<br/>당신을 기다린</span><br /><span style={{fontWeight:'700'}} id={styles.yongcheon}>2023 용천제</span>
         </div>
       </div>
+      <Box>
+          <div className={styles.button_text}>테스트 테스트 테스트</div>
+          <BoxButton
+            text='테스트'
+            color='blue'
+          />
+      </Box>
     </>
   )
 }

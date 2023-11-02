@@ -25,6 +25,18 @@
   text-align: center;
 }
 
+.button_text {
+  font-family: "pretendard";
+  font-weight: 600;
+  color: black;
+  text-align: center;
+  font-size: 20px;
+  margin-bottom: 20px;
+  -webkit-user-select: none;
+     -moz-user-select: none;
+          user-select: none;
+}
+
 #yongcheon {
   background: linear-gradient(to right top, #005AA7, #FFFDE4);
   color: transparent;

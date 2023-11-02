@@ -1,0 +1,18 @@
+.box {
+    font-family: 'pretendard';
+    padding: 20px;
+    background-color: rgba(255, 255, 255, 0.45);
+    border-radius: 15px;
+    width: 100%;
+    max-width: 500px;
+    margin: auto;
+    margin-top: -100px;
+}
+
+@media (max-width: 550px) {
+    .box {
+        margin: 0 25px;
+        width: calc(100% - 50px);
+        max-width: none;
+    }
+}

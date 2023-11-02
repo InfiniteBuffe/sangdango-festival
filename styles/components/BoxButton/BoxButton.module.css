@@ -1,0 +1,22 @@
+.button {
+  border-radius: 15px;
+  margin: auto;
+  height: 60px;
+  cursor: pointer;
+}
+
+.text {
+  font-family: "pretendard";
+  font-weight: 600;
+  font-size: 20px;
+  text-align: center;
+  line-height: 60px;
+  -webkit-user-select: none;
+     -moz-user-select: none;
+          user-select: none;
+}
+
+#blue {
+  background-color: #2B3499;
+  color: white;
+}/*# sourceMappingURL=BoxButton.module.css.map */
