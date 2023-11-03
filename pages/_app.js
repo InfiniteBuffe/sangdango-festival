@@ -1,4 +1,5 @@
 import BottomNav from '@/components/BottomNav'
+import TopSlideBanner from '@/components/TopSlideBanner'
 import '@/styles/globals.css'
 import { useRouter } from 'next/router'
 import { useState } from 'react'
@@ -15,6 +16,7 @@ export default function App({ Component, pageProps }) {
     <>
       <Component {...pageProps} />
       <BottomNav tab={currentPath} />
+      <TopSlideBanner />
     </>
   )
 }

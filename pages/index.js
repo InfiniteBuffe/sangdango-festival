@@ -1,7 +1,6 @@
 import Head from 'next/head'
 import Image from 'next/image'
 import styles from '@/styles/pages/Home/Home.module.css'
-import TopSlideBanner from '@/components/TopSlideBanner'
 import Snowfall from 'react-snowfall'
 import React from "react"
 import Box from '@/components/Box'
@@ -18,7 +17,6 @@ export default function Home() {
         color='white'
         snowflakeCount={25}
       />
-      <TopSlideBanner />
       <div className={styles.image_container}>
         <Image
           src="sangdang.jpg"
