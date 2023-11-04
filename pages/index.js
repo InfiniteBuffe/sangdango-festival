@@ -28,11 +28,12 @@ export default function Home() {
           style={{
             width: '100%',
             minWidth: '800px',
-            maxWidth: '1100px',
+            // maxWidth: '1100px',
             height: 'auto',
             minHeight: '300px',
             WebkitUserDrag: 'none',
             filter: 'blur(0px) brightness(30%) opacity(80%)',
+            objectFit: 'cover'
           }}
           className={styles.image_shadow}
           loader={({ src }) => { return `https://cdn.sangdang.kr/${src}` }}
