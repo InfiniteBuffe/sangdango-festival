@@ -18,9 +18,9 @@
 .main_text {
   font-family: "pretendard";
   font-weight: 200;
-  font-size: 35px;
+  font-size: 27px;
   color: white;
-  line-height: 45px;
+  line-height: 40px;
   -webkit-user-select: none;
      -moz-user-select: none;
           user-select: none;
@@ -46,6 +46,7 @@
   -webkit-background-clip: text;
           background-clip: text;
   font-weight: 700;
+  font-size: 35px;
 }
 
 #festival {

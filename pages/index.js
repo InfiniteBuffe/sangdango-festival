@@ -39,7 +39,7 @@ export default function Home() {
           loader={({ src }) => { return `https://cdn.sangdang.kr/${src}` }}
         />
         <div className={styles.main_text}>
-          <span style={{color:'rgba(255,255,255,0.8)'}}>운명처럼 찾아와<br/>당신을 기다린</span><br /><span id={styles.yongcheon}>2023 용천제</span>
+          <span style={{color:'rgba(255,255,255,0.8)'}}>운명처럼 다가와<br/>당신을 기다린</span><br /><span id={styles.yongcheon}>2023 용천제</span>
         </div>
       </div>
       {/* <Box>
