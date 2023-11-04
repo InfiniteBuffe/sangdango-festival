@@ -11,7 +11,8 @@ body {
 }
 
 body {
-  background-color: rgb(50, 50, 50);
+  /* background-color: rgb(30, 30, 30); */
+  background-color: black;
   font-family: "pretendard";
 }
 
@@ -24,5 +25,12 @@ a {
   font-family: 'iceJaram-Rg';
   src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2307-2@1.0/iceJaram-Rg.woff2') format('woff2');
   font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'BookkMyungjo-Bd';
+  src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2302@1.0/BookkMyungjo-Bd.woff2') format('woff2');
+  font-weight: 700;
   font-style: normal;
 }

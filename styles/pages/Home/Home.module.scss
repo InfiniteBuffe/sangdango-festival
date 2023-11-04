@@ -1,19 +1,17 @@
-
 .image_container {
     display: flex;
     justify-content: center;
     align-items: center;
     width: 100vw;
     margin-top: 30px;
-    padding: 100px 0;
     padding-top: 0;
     -webkit-user-drag: none;
     user-select: none;
 }
 
 .main_text {
-    font-family: 'pretendard';
-    font-weight: 500;
+    font-family: "pretendard";
+    font-weight: 200;
     font-size: 35px;
     color: white;
     line-height: 45px;
@@ -23,7 +21,7 @@
 }
 
 .button_text {
-    font-family: 'pretendard';
+    font-family: "pretendard";
     font-weight: 600;
     color: black;
     text-align: center;
@@ -33,8 +31,26 @@
 }
 
 #yongcheon {
-    background: linear-gradient(to right top, #005AA7, #FFFDE4);
+    background: linear-gradient(to right top, #56CCF2, #2F80ED);
     color: transparent;
     background-clip: text;
-    text-shadow: 0 0 40px #76b6ee;
+    font-weight: 700;
+}
+
+#festival {
+    background: linear-gradient(to right top, #8a2387, #e94057, #f27121);
+    color: transparent;
+    background-clip: text;
+}
+
+.title_text {
+    font-family: "pretendard";
+    font-weight: 700;
+    text-align: left;
+    color: white;
+    font-size: 35px;
+    margin-left: 20px;
+    margin-top: 50px;
+    user-select: none;
+    text-size-adjust: auto;
 }

@@ -4,7 +4,6 @@
   align-items: center;
   width: 100vw;
   margin-top: 30px;
-  padding: 100px 0;
   padding-top: 0;
   -webkit-user-drag: none;
   -webkit-user-select: none;
@@ -14,7 +13,7 @@
 
 .main_text {
   font-family: "pretendard";
-  font-weight: 500;
+  font-weight: 200;
   font-size: 35px;
   color: white;
   line-height: 45px;
@@ -38,9 +37,32 @@
 }
 
 #yongcheon {
-  background: linear-gradient(to right top, #005AA7, #FFFDE4);
+  background: linear-gradient(to right top, #56CCF2, #2F80ED);
   color: transparent;
   -webkit-background-clip: text;
           background-clip: text;
-  text-shadow: 0 0 40px #76b6ee;
+  font-weight: 700;
+}
+
+#festival {
+  background: linear-gradient(to right top, #8a2387, #e94057, #f27121);
+  color: transparent;
+  -webkit-background-clip: text;
+          background-clip: text;
+}
+
+.title_text {
+  font-family: "pretendard";
+  font-weight: 700;
+  text-align: left;
+  color: white;
+  font-size: 35px;
+  margin-left: 20px;
+  margin-top: 50px;
+  -webkit-user-select: none;
+     -moz-user-select: none;
+          user-select: none;
+  -webkit-text-size-adjust: auto;
+     -moz-text-size-adjust: auto;
+          text-size-adjust: auto;
 }/*# sourceMappingURL=Home.module.css.map */
