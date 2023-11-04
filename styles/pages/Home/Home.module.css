@@ -41,7 +41,7 @@
 }
 
 #yongcheon {
-  background: linear-gradient(to right top, #56ccf2, #2f80ed);
+  background: linear-gradient(to right top, #f7ff00, #db36a4);
   color: transparent;
   -webkit-background-clip: text;
           background-clip: text;
@@ -70,4 +70,6 @@
   -webkit-text-size-adjust: auto;
      -moz-text-size-adjust: auto;
           text-size-adjust: auto;
+  width: -moz-fit-content;
+  width: fit-content;
 }/*# sourceMappingURL=Home.module.css.map */
