@@ -9,19 +9,20 @@ const BottomNav = (props) => {
 
     return (
         <>
+            <div className={styles.space} />
             <div className={styles.nav}>
                 <div className={styles.box}>
-                    <div className={styles.menu} onClick={()=>router.push('/brochure')}>
+                    <div className={styles.menu} onClick={() => router.push('/brochure')}>
                         <div className={styles.icon}>
                             {(now_tab == 'brochure') ? (<IoBookSharp size={25} />) : (<IoBookOutline size={25} />)}
                         </div>
                     </div>
-                    <div className={styles.menu} onClick={()=>router.push('/')}>
+                    <div className={styles.menu} onClick={() => router.push('/')}>
                         <div className={styles.icon}>
                             {(now_tab == 'home') ? (<IoHomeSharp size={25} />) : (<IoHomeOutline size={25} />)}
                         </div>
                     </div>
-                    <div className={styles.menu} onClick={()=>router.push('/vote')}>
+                    <div className={styles.menu} onClick={() => router.push('/vote')}>
                         <div className={styles.icon}>
                             {(now_tab == 'vote') ? (<IoPaperPlaneSharp size={25} />) : (<IoPaperPlaneOutline size={25} />)}
                         </div>

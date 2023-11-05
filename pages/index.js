@@ -2,12 +2,21 @@ import Head from 'next/head'
 import Image from 'next/image'
 import styles from '@/styles/pages/Home/Home.module.css'
 import Snowfall from 'react-snowfall'
-import React from "react"
+import React, { useEffect, useState } from "react"
 import Box from '@/components/Box'
 import BoxButton from '@/components/BoxButton'
+import YouTube from 'react-youtube'
+import ReactPlayer from 'react-player'
 React.useLayoutEffect = React.useEffect
 
 export default function Home() {
+
+  const [isVideoReady, setIsVideoReady] = useState(false)
+
+  useEffect(() => {
+    setIsVideoReady(true)
+  }, [])
+
   return (
     <>
       <Head>
@@ -18,10 +27,10 @@ export default function Home() {
         snowflakeCount={25}
       />
       <div className={styles.title_text}>
-        2023<br/>YONG-CHEON<br/><span id={styles.festival}>FESTIVAL</span>
+        2023<br />YONG-CHEON<br /><span id={styles.festival}>FESTIVAL✨</span>
       </div>
-      <div className={styles.image_container}>
-        <Image
+      <div className={styles.video_container}>
+        {/* <Image
           src="sangdang.jpg"
           width={0}
           height={0}
@@ -37,10 +46,35 @@ export default function Home() {
           }}
           className={styles.image_shadow}
           loader={({ src }) => { return `https://cdn.sangdang.kr/${src}` }}
-        />
-        <div className={styles.main_text}>
+        /> */}
+        {/* <video
+          autoPlay={true}
+          loop={true}
+          width={'100%'}
+          height={'100%'}
+          muted={true}
+          playsInline={true}
+          className={styles.video}
+        >
+          <source src="https://cdn.sangdang.kr/sangdango_intro_festival.mp4" type='video/mp4' />
+        </video> */}
+        {isVideoReady && (
+          <ReactPlayer
+            url='https://cdn.sangdang.kr/sangdango_intro/sangdango_intro.m3u8'
+            muted={true}
+            controls={false}
+            loop={true}
+            playing={true}
+            className={styles.video}
+            width={'100%'}
+            height={'100%'}
+            playsinline={true}
+            autoPlay={true}
+          />
+        )}
+        {/* <div className={styles.main_text}>
           <span style={{color:'rgba(255,255,255,0.8)'}}>운명처럼 다가와<br/>당신을 기다린</span><br /><span id={styles.yongcheon}>2023 용천제</span>
-        </div>
+        </div> */}
       </div>
       {/* <Box>
           <div className={styles.button_text}>테스트 테스트 테스트</div>
