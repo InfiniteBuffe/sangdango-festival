@@ -7,15 +7,23 @@ import Box from '@/components/Box'
 import BoxButton from '@/components/BoxButton'
 import YouTube from 'react-youtube'
 import ReactPlayer from 'react-player'
+import Countdown from 'react-countdown'
 React.useLayoutEffect = React.useEffect
 
 export default function Home() {
 
   const [isVideoReady, setIsVideoReady] = useState(false)
+  const [isCountdownReady, setIsCountdownReady] = useState(false)
 
   useEffect(() => {
     setIsVideoReady(true)
+    setIsCountdownReady(true)
   }, [])
+
+  const renderer = ({ days, hours, minutes, seconds, completed }) => {
+    if (completed) { return 'D-DAY' }
+    else { return <span>{days}일 {hours}시간 {minutes}분 {seconds}초</span> }
+  }
 
   return (
     <>
@@ -83,6 +91,15 @@ export default function Home() {
             color='blue'
           />
       </Box> */}
+      {isCountdownReady && (
+        <div className={styles.countdown}>
+          <p id={styles.countdown_text}>우리가 만나기까지</p>
+          <Countdown
+            date={new Date(2023, 11, 21)}
+            renderer={renderer}
+          />
+        </div>
+      )}
     </>
   )
 }
