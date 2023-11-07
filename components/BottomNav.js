@@ -13,18 +13,27 @@ const BottomNav = (props) => {
             <div className={styles.nav}>
                 <div className={styles.box}>
                     <div className={styles.menu} onClick={() => router.push('/brochure')}>
-                        <div className={styles.icon}>
-                            {(now_tab == 'brochure') ? (<IoBookSharp size={25} />) : (<IoBookOutline size={25} />)}
+                        <div>
+                            <div className={styles.icon}>
+                                {(now_tab == 'brochure') ? (<IoBookSharp size={20} />) : (<IoBookOutline size={20} />)}
+                            </div>
+                            <div className={styles.name}>가이드북</div>
                         </div>
                     </div>
                     <div className={styles.menu} onClick={() => router.push('/')}>
-                        <div className={styles.icon}>
-                            {(now_tab == 'home') ? (<IoHomeSharp size={25} />) : (<IoHomeOutline size={25} />)}
+                        <div>
+                            <div className={styles.icon}>
+                                {(now_tab == 'home') ? (<IoHomeSharp size={20} />) : (<IoHomeOutline size={20} />)}
+                            </div>
+                            <div className={styles.name}>홈</div>
                         </div>
                     </div>
                     <div className={styles.menu} onClick={() => router.push('/vote')}>
-                        <div className={styles.icon}>
-                            {(now_tab == 'vote') ? (<IoPaperPlaneSharp size={25} />) : (<IoPaperPlaneOutline size={25} />)}
+                        <div>
+                            <div className={styles.icon}>
+                                {(now_tab == 'vote') ? (<IoPaperPlaneSharp size={20} />) : (<IoPaperPlaneOutline size={20} />)}
+                            </div>
+                            <div className={styles.name}>투표</div>
                         </div>
                     </div>
                 </div>

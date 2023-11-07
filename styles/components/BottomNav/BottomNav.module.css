@@ -23,6 +23,9 @@
   -webkit-tap-highlight-color: transparent;
   height: 55px;
   padding: 15px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 .menu:focus {
   outline: none;
@@ -34,6 +37,15 @@
   position: relative;
   vertical-align: middle;
   color: white;
+  text-align: center;
+}
+
+.name {
+  color: white;
+  font-family: "pretendard";
+  font-weight: 200;
+  font-size: 10px;
+  text-align: center;
 }
 
 .space {

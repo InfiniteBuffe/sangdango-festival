@@ -13,6 +13,7 @@
     flex-direction: row;
     justify-content: space-evenly;
     flex-wrap: nowrap;
+    // background-color: gray;
 }
 
 .menu {
@@ -24,6 +25,10 @@
     &:focus {
         outline: none;
     }
+    // background-color: blue;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 .icon {
@@ -32,6 +37,16 @@
     position: relative;
     vertical-align: middle;
     color: white;
+    text-align: center;
+}
+
+.name {
+    color: white;
+    font-family: 'pretendard';
+    font-weight: 200;
+    font-size: 10px;
+    text-align: center;
+    // background-color: red;
 }
 
 .space {
