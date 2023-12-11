@@ -1,0 +1,16 @@
+.box {
+  text-align: left;
+  margin-left: 15px;
+  margin-top: 45px;
+  margin-bottom: 15px;
+}
+
+.text {
+  font-family: "pretendard";
+  color: white;
+  font-weight: 700;
+  font-size: 25px;
+  -webkit-user-select: none;
+     -moz-user-select: none;
+          user-select: none;
+}/*# sourceMappingURL=PageTitle.module.css.map */
