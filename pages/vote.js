@@ -1,14 +1,69 @@
 import PageTitle from '@/components/PageTitle'
 import styles from '@/styles/pages/Vote/Vote.module.css'
-import { TextField, createTheme, ThemeProvider } from '@mui/material'
+import { TextField, createTheme, ThemeProvider, Button } from '@mui/material'
+import { styled } from '@mui/system'
+import { pink } from '@mui/material/colors'
 
 const Vote = () => {
     const theme = createTheme({
-        palette: {
-            primary: {
-                main: '#FFFFFF'
+        components: {
+            MuiButton: {
+                styleOverrides: {
+                    root: {
+                        marginTop: '25px',
+                        backgroundColor: 'gray',
+                        fontFamily: 'pretendard',
+                        fontWeight: '500',
+                        '&:hover': {
+                            backgroundColor: 'gray',
+                        },
+                    }
+                }
             },
-        },
+            MuiFormHelperText: {
+                styleOverrides: {
+                    root: {
+                        color: 'white',
+                        fontFamily: 'pretendard',
+                        fontWeight: '500'
+                    }
+                }
+            },
+            MuiInputLabel: {
+                styleOverrides: {
+                    root: {
+                        "&.Mui-focused": {
+                            color: "white"
+                        },
+                        "&.MuiInputLabel-outlined": {
+                            color: "white"
+                        },
+                        fontFamily: 'pretendard',
+                        fontWeight: '500'
+                    }
+                }
+            },
+            MuiOutlinedInput: {
+                styleOverrides: {
+                    root: {
+                        '& .MuiOutlinedInput-notchedOutline': {
+                            borderColor: 'white',
+                        },
+                        '&:hover .MuiOutlinedInput-notchedOutline': {
+                            borderColor: 'white',
+                        },
+                        '&.Mui-focused .MuiOutlinedInput-notchedOutline': {
+                            borderColor: 'white',
+                        },
+                    },
+                    input: {
+                        fontFamily: 'pretendard',
+                        fontWeight: '500',
+                        color: 'white'
+                    }
+                }
+            }
+        }
     });
     return (
         <>
@@ -18,24 +73,35 @@ const Vote = () => {
             </p>
             <div className={styles.box}>
                 <div className={styles.title}>
-                    투표자 정보 입력
+                    투표자 정보 입력 📋
                 </div>
                 <div className={styles.description}>
-                    정확한 투표 집계를 위해 필요합니다. 개인정보는 투표 종료 후 폐기됩니다.
+                    정확한 투표 집계를 위해 필요합니다. 입력된 정보는 목적 달성 후 즉시 폐기됩니다.
                 </div>
                 <ThemeProvider theme={theme}>
                     <TextField
-                        helperText="예) 1학년 9반 32번 → 10932"
-                        style={{ width: 'calc(100% - 40px)', marginLeft: '20px', marginTop: '20px' }}
+                        helperText="각 반에 지급된 코드를 정확하게 입력해주세요."
+                        style={{ width: '100%', marginTop: '25px' }}
                         fullWidth
-                        label="학번"
+                        label="인증코드"
                         variant="outlined"
-                        inputProps={{ style: { fontFamily: 'pretendard', fontWeight: '500', color: 'white' } }}
-                        InputLabelProps={{ style: { fontFamily: 'pretendard', fontWeight: '500', color: 'white' } }}
                         color="primary"
                     // onChange={(a) => }
                     // value={}
                     />
+                    <TextField
+                        helperText="예) 3학년 3반 15번 → 30315"
+                        style={{ width: '100%', marginTop: '25px' }}
+                        fullWidth
+                        label="학번"
+                        variant="outlined"
+                        color="primary"
+                    // onChange={(a) => }
+                    // value={}
+                    />
+                    <Button variant="contained" size="large" fullWidth>
+                        입력하기
+                    </Button>
                 </ThemeProvider>
             </div>
         </>

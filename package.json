@@ -12,6 +12,8 @@
     "@emotion/react": "^11.11.1",
     "@emotion/styled": "^11.11.0",
     "@mui/material": "^5.14.20",
+    "@mui/styles": "^5.14.20",
+    "mui": "^0.0.1",
     "next": "14.0.1",
     "react": "^18",
     "react-countdown": "^2.3.5",
