@@ -1,7 +1,15 @@
 import PageTitle from '@/components/PageTitle'
 import styles from '@/styles/pages/Vote/Vote.module.css'
+import { TextField, createTheme, ThemeProvider } from '@mui/material'
 
 const Vote = () => {
+    const theme = createTheme({
+        palette: {
+            primary: {
+                main: '#FFFFFF'
+            },
+        },
+    });
     return (
         <>
             <PageTitle title="투표" />
@@ -15,6 +23,20 @@ const Vote = () => {
                 <div className={styles.description}>
                     정확한 투표 집계를 위해 필요합니다. 개인정보는 투표 종료 후 폐기됩니다.
                 </div>
+                <ThemeProvider theme={theme}>
+                    <TextField
+                        helperText="예) 1학년 9반 32번 → 10932"
+                        style={{ width: 'calc(100% - 40px)', marginLeft: '20px', marginTop: '20px' }}
+                        fullWidth
+                        label="학번"
+                        variant="outlined"
+                        inputProps={{ style: { fontFamily: 'pretendard', fontWeight: '500', color: 'white' } }}
+                        InputLabelProps={{ style: { fontFamily: 'pretendard', fontWeight: '500', color: 'white' } }}
+                        color="primary"
+                    // onChange={(a) => }
+                    // value={}
+                    />
+                </ThemeProvider>
             </div>
         </>
     )
