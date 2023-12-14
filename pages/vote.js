@@ -1,8 +1,6 @@
 import PageTitle from '@/components/PageTitle'
 import styles from '@/styles/pages/Vote/Vote.module.css'
 import { TextField, createTheme, ThemeProvider, Button } from '@mui/material'
-import { styled } from '@mui/system'
-import { pink } from '@mui/material/colors'
 import { useState } from 'react'
 
 const Vote = () => {
@@ -78,7 +76,7 @@ const Vote = () => {
             <p className={styles.info}>
                 투표는 상당고등학교 용천제에 참여 중인 여러분만 이용하실 수 있습니다.
             </p>
-            <div className={styles.box}>
+            {/* <div className={styles.box}>
                 <div className={styles.title}>
                     투표자 정보 입력 📋
                 </div>
@@ -105,7 +103,7 @@ const Vote = () => {
                         투표 입장하기
                     </Button>
                 </ThemeProvider>
-            </div>
+            </div> */}
         </>
     )
 }
