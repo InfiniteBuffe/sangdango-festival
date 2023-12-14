@@ -1,3 +1,4 @@
+import Modal from '@/components/Modal'
 import PageTitle from '@/components/PageTitle'
 import styles from '@/styles/pages/Vote/Vote.module.css'
 import { TextField, createTheme, ThemeProvider, Button } from '@mui/material'
@@ -65,45 +66,68 @@ const Vote = () => {
         }
     })
     const [studentId, setStudentId] = useState()
+    const [verifyModalStatus, setVerifyModalStatus] = useState(true)
     const changeOnlyNum = (text) => {
         let regex = /[^0-9]/g
         let result = text.replace(regex, '')
         return result
     }
+    const studentForm = (
+        <div className={styles.box}>
+            <div className={styles.title}>
+                투표자 정보 입력 📋
+            </div>
+            <div className={styles.description}>
+                정확한 투표 집계를 위해 필요합니다. 1인 1표를 따르며, 다른 사람의 학번을 도용하는 경우가 적발 될 시 참여가 제한됩니다.
+            </div>
+            <ThemeProvider theme={theme}>
+                <TextField
+                    helperText="예) 3학년 3반 15번 → 30315"
+                    style={{ width: '100%', marginTop: '25px' }}
+                    fullWidth
+                    label="학번"
+                    variant="outlined"
+                    color="primary"
+                    onChange={(a) => {
+                        if ((a.target.value).length > 5) {
+                            return
+                        }
+                        setStudentId(changeOnlyNum(a.target.value))
+                    }}
+                    value={studentId}
+                />
+                <Button variant="contained" size="large" fullWidth>
+                    투표 입장하기
+                </Button>
+            </ThemeProvider>
+        </div>
+    )
     return (
         <>
+            <Modal open={verifyModalStatus} cb={setVerifyModalStatus} />
             <PageTitle title="투표" />
             <p className={styles.info}>
                 투표는 상당고등학교 용천제에 참여 중인 여러분만 이용하실 수 있습니다.
             </p>
-            {/* <div className={styles.box}>
-                <div className={styles.title}>
-                    투표자 정보 입력 📋
+            {/* {studentForm} */}
+            <div className={styles.question}>
+                Q. 해당 질문의 답변은?
+            </div>
+            <div className={styles.answer}>
+                <div className={styles.answer_text}>
+                    일번
                 </div>
-                <div className={styles.description}>
-                    정확한 투표 집계를 위해 필요합니다. 1인 1표를 따르며, 다른 사람의 학번을 도용하는 경우가 적발 될 시 참여가 제한됩니다.
+            </div>
+            <div className={styles.answer}>
+                <div className={styles.answer_text}>
+                    이번
                 </div>
-                <ThemeProvider theme={theme}>
-                    <TextField
-                        helperText="예) 3학년 3반 15번 → 30315"
-                        style={{ width: '100%', marginTop: '25px' }}
-                        fullWidth
-                        label="학번"
-                        variant="outlined"
-                        color="primary"
-                        onChange={(a) => {
-                            if((a.target.value).length > 5) {
-                                return
-                            }
-                            setStudentId(changeOnlyNum(a.target.value))
-                        }}
-                        value={studentId}
-                    />
-                    <Button variant="contained" size="large" fullWidth>
-                        투표 입장하기
-                    </Button>
-                </ThemeProvider>
-            </div> */}
+            </div>
+            <div className={styles.answer}>
+                <div className={styles.answer_text}>
+                    삼번
+                </div>
+            </div>
         </>
     )
 }
