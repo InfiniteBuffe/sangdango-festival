@@ -3,6 +3,7 @@ import styles from '@/styles/pages/Vote/Vote.module.css'
 import { TextField, createTheme, ThemeProvider, Button } from '@mui/material'
 import { styled } from '@mui/system'
 import { pink } from '@mui/material/colors'
+import { useState } from 'react'
 
 const Vote = () => {
     const theme = createTheme({
@@ -11,11 +12,11 @@ const Vote = () => {
                 styleOverrides: {
                     root: {
                         marginTop: '25px',
-                        backgroundColor: 'gray',
+                        backgroundColor: '#357a38',
                         fontFamily: 'pretendard',
                         fontWeight: '500',
                         '&:hover': {
-                            backgroundColor: 'gray',
+                            backgroundColor: '#357a38',
                         },
                     }
                 }
@@ -64,7 +65,13 @@ const Vote = () => {
                 }
             }
         }
-    });
+    })
+    const [studentId, setStudentId] = useState()
+    const changeOnlyNum = (text) => {
+        let regex = /[^0-9]/g
+        let result = text.replace(regex, '')
+        return result
+    }
     return (
         <>
             <PageTitle title="투표" />
@@ -76,19 +83,9 @@ const Vote = () => {
                     투표자 정보 입력 📋
                 </div>
                 <div className={styles.description}>
-                    정확한 투표 집계를 위해 필요합니다. 입력된 정보는 목적 달성 후 즉시 폐기됩니다.
+                    정확한 투표 집계를 위해 필요합니다. 1인 1표를 따르며, 다른 사람의 학번을 도용하는 경우가 적발 될 시 참여가 제한됩니다.
                 </div>
                 <ThemeProvider theme={theme}>
-                    <TextField
-                        helperText="각 반에 지급된 코드를 정확하게 입력해주세요."
-                        style={{ width: '100%', marginTop: '25px' }}
-                        fullWidth
-                        label="인증코드"
-                        variant="outlined"
-                        color="primary"
-                    // onChange={(a) => }
-                    // value={}
-                    />
                     <TextField
                         helperText="예) 3학년 3반 15번 → 30315"
                         style={{ width: '100%', marginTop: '25px' }}
@@ -96,11 +93,16 @@ const Vote = () => {
                         label="학번"
                         variant="outlined"
                         color="primary"
-                    // onChange={(a) => }
-                    // value={}
+                        onChange={(a) => {
+                            if((a.target.value).length > 5) {
+                                return
+                            }
+                            setStudentId(changeOnlyNum(a.target.value))
+                        }}
+                        value={studentId}
                     />
                     <Button variant="contained" size="large" fullWidth>
-                        입력하기
+                        투표 입장하기
                     </Button>
                 </ThemeProvider>
             </div>
