@@ -6,7 +6,7 @@
   z-index: 10;
   left: 0;
   top: 0;
-  background-color: rgba(82, 82, 82, 0.45);
+  background-color: rgba(70, 70, 70, 0.45);
   display: flex;
   justify-content: center;
   align-items: center;
@@ -32,7 +32,7 @@
     background-color: transparent;
   }
   to {
-    background-color: rgba(82, 82, 82, 0.45);
+    background-color: rgba(70, 70, 70, 0.45);
   }
 }
 @keyframes box {
@@ -53,7 +53,7 @@
   z-index: 10;
   left: 0;
   top: 0;
-  background-color: rgba(82, 82, 82, 0.45);
+  background-color: rgba(70, 70, 70, 0.45);
   display: flex;
   justify-content: center;
   align-items: center;
@@ -67,7 +67,7 @@
 @keyframes close_container {
   from {
     opacity: 1;
-    background-color: rgba(82, 82, 82, 0.45);
+    background-color: rgba(70, 70, 70, 0.45);
   }
   to {
     opacity: 0;
@@ -187,10 +187,10 @@
 }
 
 #send {
-  background-color: rgb(0, 155, 55);
+  background-color: rgb(0, 145, 51);
 }
 
 #close {
   margin-bottom: -22px;
-  background-color: rgb(150, 0, 0);
+  background-color: rgb(131, 0, 0);
 }/*# sourceMappingURL=Modal.module.css.map */

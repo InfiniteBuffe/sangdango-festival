@@ -2,7 +2,8 @@ import Modal from '@/components/Modal'
 import PageTitle from '@/components/PageTitle'
 import styles from '@/styles/pages/Vote/Vote.module.css'
 import { TextField, createTheme, ThemeProvider, Button } from '@mui/material'
-import { useState } from 'react'
+import { useRouter } from 'next/router'
+import { useEffect, useState } from 'react'
 
 const Vote = () => {
     const theme = createTheme({
@@ -66,12 +67,21 @@ const Vote = () => {
         }
     })
     const [studentId, setStudentId] = useState()
-    const [verifyModalStatus, setVerifyModalStatus] = useState(true)
+    const [verifyModalStatus, setVerifyModalStatus] = useState(false)
+    const [vote, setVote] = useState()
     const changeOnlyNum = (text) => {
         let regex = /[^0-9]/g
         let result = text.replace(regex, '')
         return result
     }
+
+    const [choices, SetChoices] = useState(['일번', '이번', '삼번'])
+    const router = useRouter()
+    // useEffect(() => {
+    //     if (!router.isReady) return
+    //     console.log(choices.map(k => console.log(k)))
+    // }, [router.isReady])
+
     const studentForm = (
         <div className={styles.box}>
             <div className={styles.title}>
@@ -104,7 +114,7 @@ const Vote = () => {
     )
     return (
         <>
-            <Modal open={verifyModalStatus} cb={setVerifyModalStatus} />
+            <Modal open={verifyModalStatus} cb={setVerifyModalStatus} vote={vote} />
             <PageTitle title="투표" />
             <p className={styles.info}>
                 투표는 상당고등학교 용천제에 참여 중인 여러분만 이용하실 수 있습니다.
@@ -113,21 +123,20 @@ const Vote = () => {
             <div className={styles.question}>
                 Q. 해당 질문의 답변은?
             </div>
-            <div className={styles.answer}>
-                <div className={styles.answer_text}>
-                    일번
-                </div>
-            </div>
-            <div className={styles.answer}>
-                <div className={styles.answer_text}>
-                    이번
-                </div>
-            </div>
-            <div className={styles.answer}>
-                <div className={styles.answer_text}>
-                    삼번
-                </div>
-            </div>
+            {
+                choices.map((k, key) => {
+                    return (
+                        <div key={key} className={styles.answer} onClick={()=>{
+                            setVote(k)
+                            setVerifyModalStatus(true)
+                        }}>
+                            <div className={styles.answer_text}>
+                                {k}
+                            </div>
+                        </div>
+                    )
+                })
+            }
         </>
     )
 }

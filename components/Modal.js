@@ -3,7 +3,7 @@ import Image from 'next/image'
 import { useEffect, useState } from 'react'
 import classNames from 'classnames'
 
-const Modal = ({ open, cb }) => {
+const Modal = ({ open, cb, vote, studentId }) => {
 
     const [className, setClassName] = useState({ container: styles.none, box: styles.none })
 
@@ -33,8 +33,8 @@ const Modal = ({ open, cb }) => {
                         투표 전송 후 변경이 불가능합니다.
                     </div> */}
                     <div className={styles.text}>
-                        투표자: 30315<br />
-                        선택: 일번
+                        투표자: {studentId}<br />
+                        선택: {vote}
                     </div>
                     <div className={styles.space} />
 
@@ -50,7 +50,7 @@ const Modal = ({ open, cb }) => {
                         onClick={() => closeModal()}
                         id={styles.close}
                     >
-                        닫기
+                        다시 선택
                     </div>
                 </div>
             </div>
