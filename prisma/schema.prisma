@@ -6,6 +6,20 @@ generator client {
 }
 
 datasource db {
-  provider = "mongodb"
+  provider = "postgresql"
   url      = env("DATABASE_URL")
+}
+
+model vote_template {
+  id       String   @id @default(cuid())
+  active   Boolean  @default(false)
+  choices  String[]
+  question String
+}
+
+model votes {
+  id         String @id @default(cuid())
+  student_id String
+  vote_id    String
+  choice     String
 }
