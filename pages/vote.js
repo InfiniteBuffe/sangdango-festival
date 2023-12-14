@@ -4,6 +4,7 @@ import styles from '@/styles/pages/Vote/Vote.module.css'
 import { TextField, createTheme, ThemeProvider, Button } from '@mui/material'
 import { useRouter } from 'next/router'
 import { useEffect, useState } from 'react'
+import { FaCircleExclamation } from "react-icons/fa6"
 
 const Vote = () => {
     const theme = createTheme({
@@ -76,6 +77,7 @@ const Vote = () => {
     }
 
     const [choices, SetChoices] = useState(['일번', '이번', '삼번'])
+    const [question, setQuestion] = useState()
     const router = useRouter()
     // useEffect(() => {
     //     if (!router.isReady) return
@@ -112,21 +114,15 @@ const Vote = () => {
             </ThemeProvider>
         </div>
     )
-    return (
+    const voteForm = (
         <>
-            <Modal open={verifyModalStatus} cb={setVerifyModalStatus} vote={vote} />
-            <PageTitle title="투표" />
-            <p className={styles.info}>
-                투표는 상당고등학교 용천제에 참여 중인 여러분만 이용하실 수 있습니다.
-            </p>
-            {/* {studentForm} */}
             <div className={styles.question}>
-                Q. 해당 질문의 답변은?
+                Q. {question}
             </div>
             {
                 choices.map((k, key) => {
                     return (
-                        <div key={key} className={styles.answer} onClick={()=>{
+                        <div key={key} className={styles.answer} onClick={() => {
                             setVote(k)
                             setVerifyModalStatus(true)
                         }}>
@@ -137,6 +133,25 @@ const Vote = () => {
                     )
                 })
             }
+        </>
+    )
+    return (
+        <>
+            <Modal open={verifyModalStatus} cb={setVerifyModalStatus} vote={vote} />
+            <PageTitle title="투표" />
+            <p className={styles.info}>
+                투표는 상당고등학교 용천제에 참여 중인 여러분만 이용하실 수 있습니다.
+            </p>
+            {/* {studentForm} */}
+            {/* {voteForm} */}
+            <div className={styles.notice}>
+                <div className={styles.icon}>
+                    <FaCircleExclamation size='40' />
+                </div>
+                <div className={styles.text}>
+                    실시간 방송 화면을 통해<br />투표 참여가 가능합니다
+                </div>
+            </div>
         </>
     )
 }

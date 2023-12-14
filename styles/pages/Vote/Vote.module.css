@@ -66,4 +66,26 @@
      -moz-user-select: none;
           user-select: none;
   cursor: pointer;
+}
+
+.notice {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 60px;
+  flex-direction: column;
+}
+.notice .text {
+  font-family: "pretendard";
+  font-weight: 700;
+  color: white;
+  font-size: 25px;
+  -webkit-user-select: none;
+     -moz-user-select: none;
+          user-select: none;
+  text-align: center;
+}
+.notice .icon {
+  color: white;
+  margin-bottom: 20px;
 }/*# sourceMappingURL=Vote.module.css.map */
