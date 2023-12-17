@@ -7,8 +7,12 @@ import { useRouter } from 'next/router'
 import { useEffect, useState } from 'react'
 import toast from 'react-hot-toast'
 import { FaCircleExclamation } from "react-icons/fa6"
+import { IoCheckmarkCircle } from 'react-icons/io5'
+import { MoonLoader } from 'react-spinners'
+import { io } from 'socket.io-client'
 
 const Vote = (props) => {
+
     const theme = createTheme({
         components: {
             MuiButton: {
@@ -69,6 +73,54 @@ const Vote = (props) => {
             }
         }
     })
+    const router = useRouter()
+    const [voteId, setVoteId] = useState()
+    const [socket, setSocket] = useState(null)
+    const [isCorrectVote, setIsCorrectVote] = useState(false)
+    useEffect(() => {
+        if (!router.isReady) return
+        const vote_id = router.query.id
+        if (voteId == undefined || voteId == null || voteId == '') {
+            setVoteId(vote_id)
+        }
+        if (vote_id == null || vote_id == '' || vote_id == undefined) {
+            setFormStatus({
+                ...formStatus,
+                studentIdForm: false, voteForm: false, loadingForm: false, infoForm: true
+            })
+            return
+        }
+        // 위에서 처리 다하고 url에서 제거
+        const { pathname, query } = router
+        delete query.id
+        router.replace({ pathname, query })
+        axios({
+            method: 'POST',
+            url: process.env.NEXT_PUBLIC_URL + '/api/vote/check',
+            data: {
+                vote_id: vote_id || '',
+            },
+        })
+            .then(r => {
+                if (r.data.active == false) {
+                    setFormStatus({
+                        ...formStatus,
+                        studentIdForm: false, voteForm: false, loadingForm: false, infoForm: true
+                    })
+                    return
+                }
+                if (r.data.active == true) {
+                    setIsCorrectVote(true)
+                    setFormStatus({
+                        ...formStatus,
+                        studentIdForm: true, voteForm: false, loadingForm: false, infoForm: false
+                    })
+                    const newSocket = io(process.env.NEXT_PUBLIC_SOCKET_URL)
+                    setSocket(newSocket)
+                }
+            })
+    }, [router.isReady])
+    
     const [studentId, setStudentId] = useState()
     const [verifyModalStatus, setVerifyModalStatus] = useState(false)
     const [vote, setVote] = useState()
@@ -77,10 +129,9 @@ const Vote = (props) => {
         let result = text.replace(regex, '')
         return result
     }
-    const [formStatus, setFormStatus] = useState({ studentIdForm: true, voteForm: false })
-    const [choices, SetChoices] = useState(['일번', '이번', '삼번'])
+    const [formStatus, setFormStatus] = useState({ studentIdForm: false, voteForm: false, loadingForm: true, infoForm: false, endForm: false, voteLoadingForm: false, })
+    const [choices, SetChoices] = useState([])
     const [question, setQuestion] = useState()
-    const router = useRouter()
     const clickStudentFormButton = () => {
         // 5글자 필수
         if (studentId == undefined || studentId == null || studentId == '') {
@@ -106,14 +157,48 @@ const Vote = (props) => {
             toast.error('올바르지 않는 학번입니다.')
             return
         }
-
         setFormStatus({
             ...formStatus,
             studentIdForm: false,
-            voteForm: true
+            voteForm: true,
+            loadingForm: false,
+            infoForm: false,
+            endForm: false,
+            voteLoadingForm: false,
         })
+        socket.emit('get voting data', voteId)
         toast.success('제한시간 내에 투표를 진행해주세요.')
     }
+
+    useEffect(() => {
+        if (!router.isReady) return
+        if (!socket) return
+        socket.on('connect', () => {
+            toast.success('실시간 투표 서버에 연결되었습니다.')
+            socket.on('vote id error', () => {
+                toast.error('유효하지 않은 투표입니다.')
+            })
+        })
+        socket.on('voting data', (data) => {
+            if (data.active == false) { // 유효한 투표였다가 중간에 투표가 종료됬으므로 마감 안내를 띄움
+                setFormStatus({
+                    ...formStatus,
+                    studentIdForm: false,
+                    voteForm: false,
+                    loadingForm: false,
+                    infoForm: false,
+                    endForm: true,
+                    voteLoadingForm: false,
+                })
+                return
+            }
+            setQuestion(data.question)
+            SetChoices(data.choices)
+        })
+        socket.on('disconnect', () => {
+            toast.error('실시간 투표 서버와 연결이 종료되었습니다.')
+        })
+    }, [router.isReady, socket])
 
     const studentForm = (
         <div className={styles.box}>
@@ -137,7 +222,7 @@ const Vote = (props) => {
                         }
                         setStudentId(changeOnlyNum(a.target.value))
                     }}
-                    value={studentId}
+                    value={studentId || ""}
                 />
                 <Button variant="contained" size="large" fullWidth onClick={clickStudentFormButton}>
                     투표 입장하기
@@ -166,58 +251,109 @@ const Vote = (props) => {
             }
         </>
     )
-
-    if (!props.active) {
-        return (
-            <>
-                <PageTitle title="투표" />
-                <p className={styles.info}>
-                    투표는 상당고등학교 용천제에 참여 중인 여러분만 이용하실 수 있습니다.
-                </p>
-                <div className={styles.notice}>
-                    <div className={styles.icon}>
-                        <FaCircleExclamation size='40' />
-                    </div>
-                    <div className={styles.text}>
-                        실시간 방송 화면을 통해<br />투표 참여가 가능합니다
-                    </div>
+    const loadingForm = (
+        <>
+            <div className={styles.notice}>
+                <div className={styles.icon}>
+                    <MoonLoader color="#FFFFFF" speedMultiplier={'0.85'} size={50} />
                 </div>
-            </>
-        )
-    }
+                <div className={styles.text}>
+                    잠시만 기다려주세요...
+                </div>
+            </div>
+        </>
+    )
+    const infoForm = (
+        <>
+            <div className={styles.notice}>
+                <div className={styles.icon}>
+                    <FaCircleExclamation size='40' />
+                </div>
+                <div className={styles.text}>
+                    실시간 방송 화면을 통해<br />투표 참여가 가능합니다
+                </div>
+            </div>
+        </>
+    )
+    const endForm = (
+        <div className={styles.notice}>
+            <div className={styles.icon}>
+                <IoCheckmarkCircle size='40' />
+            </div>
+            <div className={styles.text}>
+                투표가 마감되었습니다
+            </div>
+        </div>
+    )
+    const voteLoadingForm = (
+        <>
+            <div className={styles.notice}>
+                <div className={styles.icon}>
+                    <MoonLoader color="#FFFFFF" speedMultiplier={'0.85'} size={50} />
+                </div>
+                <div className={styles.text}>
+                    투표를 불러오는 중...
+                </div>
+            </div>
+        </>
+    )
 
     return (
         <>
-            <Modal open={verifyModalStatus} cb={setVerifyModalStatus} vote={vote} />
             <PageTitle title="투표" />
             <p className={styles.info}>
                 투표는 상당고등학교 용천제에 참여 중인 여러분만 이용하실 수 있습니다.
             </p>
+            <Modal open={verifyModalStatus} cb={setVerifyModalStatus} vote={vote} studentId={studentId} />
+            {formStatus.loadingForm && (
+                loadingForm
+            )}
+            {formStatus.voteLoadingForm && (
+                voteLoadingForm
+            )}
+            {formStatus.infoForm && (
+                infoForm
+            )}
             {formStatus.studentIdForm && (
                 studentForm
             )}
             {formStatus.voteForm && (
                 voteForm
             )}
+            {formStatus.endForm && (
+                endForm
+            )}
         </>
     )
 }
 
-export async function getServerSideProps(context) {
-    try {
-        if (context.query.id == null || context.query.id == '') {
-            return { props: { active: false } }
-        }
-        const res = await axios({
-            method: 'POST',
-            url: process.env.URL + '/api/vote/check',
-            data: {
-                vote_id: context.query.id || ''
-            }
-        })
-        return { props: { active: res.data.active } }
-    } catch (error) {
-        return { props: { active: false } }
-    }
-}
+// export async function getServerSideProps(context) {
+//     if (!shouldRefreshData) {
+//         return { props: { active: true } };
+//     }
+
+//     try {
+//         const id = context.query.id;
+
+//         if (id == null || id === '') {
+//             return { props: { active: false } };
+//         }
+
+//         const res = await axios({
+//             method: 'POST',
+//             url: process.env.URL + '/api/vote/check',
+//             data: {
+//                 vote_id: id || '',
+//             },
+//         });
+
+//         // 데이터를 성공적으로 가져왔을 때 shouldRefreshData를 false로 설정
+//         shouldRefreshData = false;
+
+//         return { props: { active: res.data.active } };
+//     } catch (error) {
+//         return { props: { active: false } };
+//     }
+// }
+
 export default Vote

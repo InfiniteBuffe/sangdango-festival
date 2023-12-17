@@ -130,11 +130,16 @@
   cursor: pointer;
 }
 
+.button_box {
+  display: flex;
+  margin-bottom: -15px;
+  margin-left: -15px;
+  width: calc(100% + 30px);
+}
+
 .button {
   border-radius: 20px;
-  width: calc(100% + 44px);
-  margin-left: -22px;
-  margin-bottom: 8px;
+  width: 100%;
   background-color: #0f0c29;
   font-family: "pretendard";
   font-size: 15px;
@@ -146,6 +151,10 @@
      -moz-user-select: none;
           user-select: none;
   cursor: pointer;
+}
+
+.space_flex {
+  width: 20px;
 }
 
 @media (max-width: 350px) {
@@ -192,5 +201,5 @@
 
 #close {
   margin-bottom: -22px;
-  background-color: rgb(131, 0, 0);
+  background-color: rgb(36, 36, 36);
 }/*# sourceMappingURL=Modal.module.css.map */

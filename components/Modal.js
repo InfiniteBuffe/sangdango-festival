@@ -33,24 +33,27 @@ const Modal = ({ open, cb, vote, studentId }) => {
                         투표 전송 후 변경이 불가능합니다.
                     </div> */}
                     <div className={styles.text}>
-                        투표자: {studentId}<br />
-                        선택: {vote}
+                        <span style={{fontWeight:'400'}}>학번:</span> {studentId}<br />
+                        <span style={{fontWeight:'400'}}>선택:</span> {vote}
                     </div>
                     <div className={styles.space} />
 
-                    <div
-                        className={styles.button}
-                        onClick={() => closeModal()}
-                        id={styles.send}
-                    >
-                        투표 전송
-                    </div>
-                    <div
-                        className={styles.button}
-                        onClick={() => closeModal()}
-                        id={styles.close}
-                    >
-                        다시 선택
+                    <div className={styles.button_box}>
+                        <div
+                            className={styles.button}
+                            onClick={() => closeModal()}
+                            id={styles.send}
+                        >
+                            투표 전송
+                        </div>
+                        <div className={styles.space_flex} />
+                        <div
+                            className={styles.button}
+                            onClick={() => closeModal()}
+                            id={styles.close}
+                        >
+                            다시 선택
+                        </div>
                     </div>
                 </div>
             </div>
