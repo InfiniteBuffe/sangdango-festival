@@ -3,7 +3,7 @@ import Image from 'next/image'
 import { useEffect, useState } from 'react'
 import classNames from 'classnames'
 
-const Modal = ({ open, cb, vote, studentId }) => {
+const Modal = ({ open, cb, vote, studentId, confirm }) => {
 
     const [className, setClassName] = useState({ container: styles.none, box: styles.none })
 
@@ -41,7 +41,10 @@ const Modal = ({ open, cb, vote, studentId }) => {
                     <div className={styles.button_box}>
                         <div
                             className={styles.button}
-                            onClick={() => closeModal()}
+                            onClick={() => {
+                                closeModal()
+                                confirm(studentId, vote)
+                            }}
                             id={styles.send}
                         >
                             투표 전송

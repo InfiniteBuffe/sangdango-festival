@@ -120,7 +120,7 @@ const Vote = (props) => {
                 }
             })
     }, [router.isReady])
-    
+
     const [studentId, setStudentId] = useState()
     const [verifyModalStatus, setVerifyModalStatus] = useState(false)
     const [vote, setVote] = useState()
@@ -129,7 +129,7 @@ const Vote = (props) => {
         let result = text.replace(regex, '')
         return result
     }
-    const [formStatus, setFormStatus] = useState({ studentIdForm: false, voteForm: false, loadingForm: true, infoForm: false, endForm: false, voteLoadingForm: false, })
+    const [formStatus, setFormStatus] = useState({ voteErrorForm: false, alreadyForm: false, voteSuccessForm: false, studentIdForm: false, voteForm: false, loadingForm: true, infoForm: false, endForm: false, voteLoadingForm: false, })
     const [choices, SetChoices] = useState([])
     const [question, setQuestion] = useState()
     const clickStudentFormButton = () => {
@@ -157,17 +157,25 @@ const Vote = (props) => {
             toast.error('올바르지 않는 학번입니다.')
             return
         }
+
+        // 투표 체크
+        socket.emit('check vote', {
+            studentId: studentId,
+            id: voteId
+        })
         setFormStatus({
             ...formStatus,
             studentIdForm: false,
-            voteForm: true,
-            loadingForm: false,
+            voteForm: false,
+            loadingForm: true,
             infoForm: false,
             endForm: false,
             voteLoadingForm: false,
+            voteSuccessForm: false,
+            alreadyForm: false,
+            voteErrorForm: false,
         })
-        socket.emit('get voting data', voteId)
-        toast.success('제한시간 내에 투표를 진행해주세요.')
+        return
     }
 
     useEffect(() => {
@@ -176,7 +184,68 @@ const Vote = (props) => {
         socket.on('connect', () => {
             toast.success('실시간 투표 서버에 연결되었습니다.')
             socket.on('vote id error', () => {
+                if (formStatus.voteLoadingForm) {
+                    setFormStatus({
+                        ...formStatus,
+                        studentIdForm: false,
+                        voteForm: false,
+                        loadingForm: false,
+                        infoForm: false,
+                        endForm: false,
+                        voteLoadingForm: false,
+                        voteSuccessForm: false,
+                        alreadyForm: false,
+                        voteErrorForm: true,
+                    })
+                }
                 toast.error('유효하지 않은 투표입니다.')
+            })
+        })
+        socket.on('vote ended', (data) => {
+            toast.error('투표가 마감되었습니다.')
+            setFormStatus({
+                ...formStatus,
+                studentIdForm: false,
+                voteForm: false,
+                loadingForm: false,
+                infoForm: false,
+                endForm: true,
+                voteLoadingForm: false,
+                voteSuccessForm: false,
+                alreadyForm: false,
+                voteErrorForm: false,
+            })
+            return
+        })
+        socket.on('vote success', (data) => {
+            setFormStatus({
+                ...formStatus,
+                studentIdForm: false,
+                voteForm: false,
+                loadingForm: false,
+                infoForm: false,
+                endForm: false,
+                voteLoadingForm: false,
+                voteSuccessForm: true,
+                alreadyForm: false,
+                voteErrorForm: false,
+            })
+            toast.success('투표가 완료되었습니다.')
+        })
+        socket.on('already vote', (data) => {
+            toast.error('이미 투표하셨습니다.')
+            setVote(data.vote)
+            setFormStatus({
+                ...formStatus,
+                studentIdForm: false,
+                voteForm: false,
+                loadingForm: false,
+                infoForm: false,
+                endForm: false,
+                voteLoadingForm: false,
+                voteSuccessForm: false,
+                alreadyForm: true,
+                voteErrorForm: false,
             })
         })
         socket.on('voting data', (data) => {
@@ -189,14 +258,78 @@ const Vote = (props) => {
                     infoForm: false,
                     endForm: true,
                     voteLoadingForm: false,
+                    voteSuccessForm: false,
+                    alreadyForm: false,
+                    voteErrorForm: false,
                 })
                 return
             }
             setQuestion(data.question)
             SetChoices(data.choices)
+            setFormStatus({
+                ...formStatus,
+                studentIdForm: false,
+                voteForm: true,
+                loadingForm: false,
+                infoForm: false,
+                endForm: false,
+                voteLoadingForm: false,
+                voteSuccessForm: false,
+                alreadyForm: false,
+                voteErrorForm: false,
+            })
+        })
+        socket.on('vote error', () => {
+            toast.error('오류가 발생하였습니다. 다시 시도해주세요.')
+            setFormStatus({
+                ...formStatus,
+                studentIdForm: false,
+                voteForm: false,
+                loadingForm: false,
+                infoForm: false,
+                endForm: false,
+                voteLoadingForm: false,
+                voteSuccessForm: false,
+                alreadyForm: false,
+                voteErrorForm: true,
+            })
         })
         socket.on('disconnect', () => {
-            toast.error('실시간 투표 서버와 연결이 종료되었습니다.')
+            if (formStatus.voteLoadingForm) {
+                setFormStatus({
+                    ...formStatus,
+                    studentIdForm: false,
+                    voteForm: false,
+                    loadingForm: false,
+                    infoForm: false,
+                    endForm: false,
+                    voteLoadingForm: false,
+                    voteSuccessForm: false,
+                    alreadyForm: false,
+                    voteErrorForm: true,
+                })
+                toast.error('실시간 투표 서버와 연결이 종료되었습니다.')
+                toast.error('QR코드를 통해 다시 접속해주세요.')
+                return
+            }
+            toast.error('실시간 투표 서버와 연결이 종료되었습니다. 다시 연결중...')
+        })
+        socket.on('check vote', (data) => {
+            setFormStatus({
+                ...formStatus,
+                studentIdForm: false,
+                voteForm: false,
+                loadingForm: false,
+                infoForm: false,
+                endForm: false,
+                voteLoadingForm: true,
+                voteSuccessForm: false,
+                alreadyForm: false,
+                voteErrorForm: false,
+            })
+            socket.emit('get voting data', voteId)
+            toast.success('제한시간 내에 투표를 진행해주세요.')
+            return
         })
     }, [router.isReady, socket])
 
@@ -230,6 +363,25 @@ const Vote = (props) => {
             </ThemeProvider>
         </div>
     )
+    const sendVote = (_studentId, _vote) => {
+        setFormStatus({
+            ...formStatus,
+            studentIdForm: false,
+            voteForm: false,
+            loadingForm: false,
+            infoForm: false,
+            endForm: false,
+            voteLoadingForm: true,
+            voteSuccessForm: false,
+            alreadyForm: false,
+            voteErrorForm: false,
+        })
+        socket.emit('send vote', {
+            id: voteId,
+            studentId: _studentId,
+            vote: _vote,
+        })
+    }
     const voteForm = (
         <>
             <div className={styles.question}>
@@ -292,10 +444,40 @@ const Vote = (props) => {
                     <MoonLoader color="#FFFFFF" speedMultiplier={'0.85'} size={50} />
                 </div>
                 <div className={styles.text}>
-                    투표를 불러오는 중...
+                    잠시만 기다려주세요...
                 </div>
             </div>
         </>
+    )
+    const voteSuccessForm = (
+        <div className={styles.notice}>
+            <div className={styles.icon}>
+                <IoCheckmarkCircle size='40' />
+            </div>
+            <div className={styles.text}>
+                [{vote}] 투표 완료!
+            </div>
+        </div>
+    )
+    const voteErrorForm = (
+        <div className={styles.notice}>
+            <div className={styles.icon}>
+                <FaCircleExclamation size='40' />
+            </div>
+            <div className={styles.text}>
+                투표 중 오류가 발생하였습니다.
+            </div>
+        </div>
+    )
+    const alreadyForm = (
+        <div className={styles.notice}>
+            <div className={styles.icon}>
+                <FaCircleExclamation size='40' />
+            </div>
+            <div className={styles.text}>
+                이미 [{vote}]에 투표하셨습니다.
+            </div>
+        </div>
     )
 
     return (
@@ -304,7 +486,7 @@ const Vote = (props) => {
             <p className={styles.info}>
                 투표는 상당고등학교 용천제에 참여 중인 여러분만 이용하실 수 있습니다.
             </p>
-            <Modal open={verifyModalStatus} cb={setVerifyModalStatus} vote={vote} studentId={studentId} />
+            <Modal open={verifyModalStatus} cb={setVerifyModalStatus} vote={vote} studentId={studentId} confirm={sendVote} />
             {formStatus.loadingForm && (
                 loadingForm
             )}
@@ -322,6 +504,15 @@ const Vote = (props) => {
             )}
             {formStatus.endForm && (
                 endForm
+            )}
+            {formStatus.voteSuccessForm && (
+                voteSuccessForm
+            )}
+            {formStatus.voteErrorForm && (
+                voteErrorForm
+            )}
+            {formStatus.alreadyForm && (
+                alreadyForm
             )}
         </>
     )
