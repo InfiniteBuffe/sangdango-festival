@@ -115,7 +115,7 @@ const Vote = (props) => {
                         ...formStatus,
                         studentIdForm: true, voteForm: false, loadingForm: false, infoForm: false
                     })
-                    const newSocket = io(process.env.NEXT_PUBLIC_SOCKET_URL, { transports: ['websocket'], secure: false })
+                    const newSocket = io(process.env.NEXT_PUBLIC_SOCKET_URL)
                     setSocket(newSocket)
                 }
             })
