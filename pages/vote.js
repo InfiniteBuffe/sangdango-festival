@@ -105,7 +105,7 @@ const Vote = (props) => {
                 if (r.data.active == false) {
                     setFormStatus({
                         ...formStatus,
-                        studentIdForm: false, voteForm: false, loadingForm: false, infoForm: true
+                        voteErrorForm: false, alreadyForm: false, voteSuccessForm: false, studentIdForm: false, voteForm: false, loadingForm: false, infoForm: true, endForm: false, voteLoadingForm: false,
                     })
                     return
                 }
@@ -113,7 +113,7 @@ const Vote = (props) => {
                     setIsCorrectVote(true)
                     setFormStatus({
                         ...formStatus,
-                        studentIdForm: true, voteForm: false, loadingForm: false, infoForm: false
+                        voteErrorForm: false, alreadyForm: false, voteSuccessForm: false, studentIdForm: true, voteForm: false, loadingForm: false, infoForm: false, endForm: false, voteLoadingForm: false,
                     })
                     const newSocket = io(process.env.NEXT_PUBLIC_SOCKET_URL)
                     setSocket(newSocket)

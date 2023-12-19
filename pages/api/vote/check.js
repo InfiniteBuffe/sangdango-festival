@@ -20,9 +20,20 @@ export default async function handler(req, res) {
       id: id,
     }
   })
+
+  if (findVote[0] == undefined) {
+    res
+      .status(200)
+      .send({
+        active: false,
+      })
+    return
+  }
+
   res
     .status(200)
     .send({
-      active: (findVote[0] != undefined) ? true : false,
+      active: findVote[0].active,
     })
+  return
 }
